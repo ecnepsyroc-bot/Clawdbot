@@ -568,6 +568,13 @@ export async function runNodeHost(opts: NodeHostRunOptions): Promise<void> {
     },
   });
 
+  // Eagerly start browser control service so the Chrome extension relay
+  // is ready before the first browser.proxy request (fixes chicken-and-egg
+  // where extension shows "!" because relay hasn't started yet).
+  if (browserProxyEnabled) {
+    ensureBrowserControlService().catch(() => {});
+  }
+
   const skillBins = new SkillBinsCache(async () => {
     const res = (await client.request("skills.bins", {})) as
       | { bins?: unknown[] }
