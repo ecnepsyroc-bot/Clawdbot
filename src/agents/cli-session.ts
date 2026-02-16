@@ -1,29 +1,43 @@
-import type { SessionEntry } from "../config/sessions.js";
+import { getRuntimeState, updateRuntimeState } from "../domain/session/index.js";
 import { normalizeProviderId } from "./model-selection.js";
 
+/**
+ * Get CLI session ID from runtime state.
+ * CLI session IDs are runtime state that should not persist to disk.
+ */
 export function getCliSessionId(
-  entry: SessionEntry | undefined,
+  sessionKey: string | undefined,
   provider: string,
 ): string | undefined {
-  if (!entry) return undefined;
+  if (!sessionKey) return undefined;
+  const state = getRuntimeState(sessionKey);
   const normalized = normalizeProviderId(provider);
-  const fromMap = entry.cliSessionIds?.[normalized];
+  const fromMap = state.cliSessionIds?.[normalized];
   if (fromMap?.trim()) return fromMap.trim();
   if (normalized === "claude-cli") {
-    const legacy = entry.claudeCliSessionId?.trim();
+    const legacy = state.claudeCliSessionId?.trim();
     if (legacy) return legacy;
   }
   return undefined;
 }
 
-export function setCliSessionId(entry: SessionEntry, provider: string, sessionId: string): void {
+/**
+ * Set CLI session ID in runtime state.
+ * CLI session IDs are runtime state that should not persist to disk.
+ */
+export function setCliSessionId(sessionKey: string, provider: string, sessionId: string): void {
+  if (!sessionKey) return;
   const normalized = normalizeProviderId(provider);
   const trimmed = sessionId.trim();
   if (!trimmed) return;
-  const existing = entry.cliSessionIds ?? {};
-  entry.cliSessionIds = { ...existing };
-  entry.cliSessionIds[normalized] = trimmed;
+  const state = getRuntimeState(sessionKey);
+  const existing = state.cliSessionIds ?? {};
+  const cliSessionIds = { ...existing, [normalized]: trimmed };
+  const patch: { cliSessionIds: Record<string, string>; claudeCliSessionId?: string } = {
+    cliSessionIds,
+  };
   if (normalized === "claude-cli") {
-    entry.claudeCliSessionId = trimmed;
+    patch.claudeCliSessionId = trimmed;
   }
+  updateRuntimeState(sessionKey, patch);
 }

@@ -54,9 +54,10 @@ export async function updateSessionStoreAfterAgentRun(params: {
     model: modelUsed,
     contextTokens,
   };
+  // CLI session IDs are stored in runtime state, not persisted
   if (isCliProvider(providerUsed, cfg)) {
     const cliSessionId = result.meta.agentMeta?.sessionId?.trim();
-    if (cliSessionId) setCliSessionId(next, providerUsed, cliSessionId);
+    if (cliSessionId) setCliSessionId(sessionKey, providerUsed, cliSessionId);
   }
   next.abortedLastRun = result.meta.aborted ?? false;
   if (hasNonzeroUsage(usage)) {

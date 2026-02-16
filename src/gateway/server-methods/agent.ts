@@ -251,8 +251,7 @@ export const agentHandlers: GatewayRequestHandlers = {
         groupId: resolvedGroupId ?? entry?.groupId,
         groupChannel: resolvedGroupChannel ?? entry?.groupChannel,
         space: resolvedGroupSpace ?? entry?.space,
-        cliSessionIds: entry?.cliSessionIds,
-        claudeCliSessionId: entry?.claudeCliSessionId,
+        // Note: cliSessionIds/claudeCliSessionId are now runtime state, not persisted
       };
       sessionEntry = nextEntry;
       const sendPolicy = resolveSendPolicy({

@@ -336,7 +336,7 @@ export async function runCronIsolatedAgentTurn(params: {
       fallbacksOverride: resolveAgentModelFallbacksOverride(params.cfg, agentId),
       run: (providerOverride, modelOverride) => {
         if (isCliProvider(providerOverride, cfgWithAgentDefaults)) {
-          const cliSessionId = getCliSessionId(cronSession.sessionEntry, providerOverride);
+          const cliSessionId = getCliSessionId(agentSessionKey, providerOverride);
           return runCliAgent({
             sessionId: cronSession.sessionEntry.sessionId,
             sessionKey: agentSessionKey,
@@ -392,10 +392,11 @@ export async function runCronIsolatedAgentTurn(params: {
     cronSession.sessionEntry.modelProvider = providerUsed;
     cronSession.sessionEntry.model = modelUsed;
     cronSession.sessionEntry.contextTokens = contextTokens;
+    // CLI session IDs are stored in runtime state, not persisted
     if (isCliProvider(providerUsed, cfgWithAgentDefaults)) {
       const cliSessionId = runResult.meta.agentMeta?.sessionId?.trim();
       if (cliSessionId) {
-        setCliSessionId(cronSession.sessionEntry, providerUsed, cliSessionId);
+        setCliSessionId(agentSessionKey, providerUsed, cliSessionId);
       }
     }
     if (hasNonzeroUsage(usage)) {

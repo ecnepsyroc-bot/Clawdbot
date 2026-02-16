@@ -162,7 +162,9 @@ export async function runAgentTurnWithFallback(params: {
                 startedAt,
               },
             });
-            const cliSessionId = getCliSessionId(params.getActiveSessionEntry(), provider);
+            const cliSessionId = params.sessionKey
+              ? getCliSessionId(params.sessionKey, provider)
+              : undefined;
             return runCliAgent({
               sessionId: params.followupRun.run.sessionId,
               sessionKey: params.sessionKey,

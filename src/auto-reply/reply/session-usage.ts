@@ -42,15 +42,10 @@ export async function persistSessionUsageUpdate(params: {
             systemPromptReport: params.systemPromptReport ?? entry.systemPromptReport,
             updatedAt: Date.now(),
           };
+          // CLI session IDs are stored in runtime state, not persisted
           const cliProvider = params.providerUsed ?? entry.modelProvider;
           if (params.cliSessionId && cliProvider) {
-            const nextEntry = { ...entry, ...patch };
-            setCliSessionId(nextEntry, cliProvider, params.cliSessionId);
-            return {
-              ...patch,
-              cliSessionIds: nextEntry.cliSessionIds,
-              claudeCliSessionId: nextEntry.claudeCliSessionId,
-            };
+            setCliSessionId(sessionKey, cliProvider, params.cliSessionId);
           }
           return patch;
         },
@@ -74,15 +69,10 @@ export async function persistSessionUsageUpdate(params: {
             systemPromptReport: params.systemPromptReport ?? entry.systemPromptReport,
             updatedAt: Date.now(),
           };
+          // CLI session IDs are stored in runtime state, not persisted
           const cliProvider = params.providerUsed ?? entry.modelProvider;
           if (params.cliSessionId && cliProvider) {
-            const nextEntry = { ...entry, ...patch };
-            setCliSessionId(nextEntry, cliProvider, params.cliSessionId);
-            return {
-              ...patch,
-              cliSessionIds: nextEntry.cliSessionIds,
-              claudeCliSessionId: nextEntry.claudeCliSessionId,
-            };
+            setCliSessionId(sessionKey, cliProvider, params.cliSessionId);
           }
           return patch;
         },
