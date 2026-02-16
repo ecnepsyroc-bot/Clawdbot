@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { DEFAULT_AGENT_MAX_CONCURRENT, DEFAULT_SUBAGENT_MAX_CONCURRENT } from "./agent-limits.js";
-import { withTempHome } from "./test-helpers.js";
+import { withTempHome } from "../../../tests/helpers/config.js";
 
 describe("config identity defaults", () => {
   let previousHome: string | undefined;

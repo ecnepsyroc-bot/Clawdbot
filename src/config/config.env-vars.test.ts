@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { withEnvOverride, withTempHome } from "./test-helpers.js";
+import { withEnvOverride, withTempHome } from "../../../tests/helpers/config.js";
 
 describe("config env vars", () => {
   it("applies env vars from env block when missing", async () => {

@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 import type { TemplateContext } from "../templating.js";
 import { DEFAULT_MEMORY_FLUSH_PROMPT } from "./memory-flush.js";
 import type { FollowupRun, QueueSettings } from "./queue.js";
-import { createMockTypingController } from "./test-helpers.js";
+import { createMockTypingController } from "../../../../tests/helpers/auto-reply.js";
 
 const runEmbeddedPiAgentMock = vi.fn();
 const runCliAgentMock = vi.fn();

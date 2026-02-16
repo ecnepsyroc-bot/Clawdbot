@@ -9,7 +9,7 @@ import {
   getFreePort,
   installGatewayTestHooks,
   startGatewayServer,
-} from "./test-helpers.js";
+} from "../../../tests/helpers/gateway/index.js";
 
 installGatewayTestHooks({ scope: "suite" });
 

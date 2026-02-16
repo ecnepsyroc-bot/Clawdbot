@@ -6,7 +6,7 @@ import handler from "./handler.js";
 import { createHookEvent } from "../../hooks.js";
 import type { AgentBootstrapHookContext } from "../../hooks.js";
 import type { MoltbotConfig } from "../../../config/config.js";
-import { makeTempWorkspace, writeWorkspaceFile } from "../../../test-helpers/workspace.js";
+import { makeTempWorkspace, writeWorkspaceFile } from "../../../../../tests/helpers/workspace.js";
 
 describe("soul-evil hook", () => {
   it("skips subagent sessions", async () => {

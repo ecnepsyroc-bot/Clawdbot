@@ -25,7 +25,7 @@ import {
   startServerWithClient,
   testState,
   testTailnetIPv4,
-} from "./test-helpers.js";
+} from "../../../tests/helpers/gateway/index.js";
 
 installGatewayTestHooks({ scope: "suite" });
 

@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import { loadSessionStore, saveSessionStore, type SessionEntry } from "../../config/sessions.js";
 import type { FollowupRun } from "./queue.js";
-import { createMockTypingController } from "./test-helpers.js";
+import { createMockTypingController } from "../../../../tests/helpers/auto-reply.js";
 
 const runEmbeddedPiAgentMock = vi.fn();
 

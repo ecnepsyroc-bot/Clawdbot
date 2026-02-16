@@ -16,7 +16,7 @@ vi.mock("../agents/pi-embedded.js", () => ({
 import { resetInboundDedupe } from "../auto-reply/reply/inbound-dedupe.js";
 import { resetLogger, setLoggerOverride } from "../logging.js";
 import { HEARTBEAT_TOKEN, monitorWebChannel } from "./auto-reply.js";
-import { resetBaileysMocks, resetLoadConfigMock, setLoadConfigMock } from "./test-helpers.js";
+import { resetBaileysMocks, resetLoadConfigMock, setLoadConfigMock } from "../../../tests/helpers/web.js";
 
 let previousHome: string | undefined;
 let tempHome: string | undefined;

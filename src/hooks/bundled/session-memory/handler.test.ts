@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import handler from "./handler.js";
 import { createHookEvent } from "../../hooks.js";
 import type { ClawdbotConfig } from "../../../config/config.js";
-import { makeTempWorkspace, writeWorkspaceFile } from "../../../test-helpers/workspace.js";
+import { makeTempWorkspace, writeWorkspaceFile } from "../../../../../tests/helpers/workspace.js";
 
 /**
  * Create a mock session JSONL file with various entry types

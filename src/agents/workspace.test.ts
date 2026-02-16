@@ -5,7 +5,7 @@ import {
   DEFAULT_MEMORY_FILENAME,
   loadWorkspaceBootstrapFiles,
 } from "./workspace.js";
-import { makeTempWorkspace, writeWorkspaceFile } from "../test-helpers/workspace.js";
+import { makeTempWorkspace, writeWorkspaceFile } from "../../../tests/helpers/workspace.js";
 
 describe("loadWorkspaceBootstrapFiles", () => {
   it("includes MEMORY.md when present", async () => {

@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { SessionEntry } from "../../config/sessions.js";
 import type { TemplateContext } from "../templating.js";
 import type { FollowupRun, QueueSettings } from "./queue.js";
-import { createMockTypingController } from "./test-helpers.js";
+import { createMockTypingController } from "../../../../tests/helpers/auto-reply.js";
 
 const runEmbeddedPiAgentMock = vi.fn();
 const runWithModelFallbackMock = vi.fn();

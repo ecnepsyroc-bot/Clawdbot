@@ -33,10 +33,10 @@ import {
   testIsNixMode,
   testState,
   testTailnetIPv4,
-} from "./test-helpers.mocks.js";
+} from "./mocks.js";
 
 // Preload the gateway server module once per worker.
-// Important: `test-helpers.mocks` must run before importing the server so vi.mock hooks apply.
+// Important: `mocks` must run before importing the server so vi.mock hooks apply.
 const serverModulePromise = import("./server.js");
 
 let previousHome: string | undefined;

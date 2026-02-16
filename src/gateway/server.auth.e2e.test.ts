@@ -11,7 +11,7 @@ import {
   startGatewayServer,
   startServerWithClient,
   testState,
-} from "./test-helpers.js";
+} from "../../../tests/helpers/gateway/index.js";
 import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.js";
 
 installGatewayTestHooks({ scope: "suite" });

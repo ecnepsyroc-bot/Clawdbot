@@ -10,7 +10,7 @@ import {
   installGatewayTestHooks,
   onceMessage,
   startGatewayServer,
-} from "./test-helpers.js";
+} from "../../../tests/helpers/gateway/index.js";
 
 installGatewayTestHooks({ scope: "suite" });
 

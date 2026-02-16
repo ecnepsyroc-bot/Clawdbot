@@ -19,7 +19,7 @@ import {
   installGatewayTestHooks,
   rpcReq,
   startServerWithClient,
-} from "./test-helpers.js";
+} from "../../../tests/helpers/gateway/index.js";
 
 installGatewayTestHooks({ scope: "suite" });
 

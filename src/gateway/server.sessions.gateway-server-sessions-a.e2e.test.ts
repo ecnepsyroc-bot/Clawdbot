@@ -13,7 +13,7 @@ import {
   startGatewayServer,
   testState,
   writeSessionStore,
-} from "./test-helpers.js";
+} from "../../../tests/helpers/gateway/index.js";
 import { DEFAULT_PROVIDER } from "../agents/defaults.js";
 
 const sessionCleanupMocks = vi.hoisted(() => ({

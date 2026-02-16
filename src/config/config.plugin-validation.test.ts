@@ -3,7 +3,7 @@ import path from "node:path";
 
 import { describe, expect, it, vi } from "vitest";
 
-import { withTempHome } from "./test-helpers.js";
+import { withTempHome } from "../../../tests/helpers/config.js";
 
 async function writePluginFixture(params: {
   dir: string;

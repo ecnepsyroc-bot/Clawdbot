@@ -7,7 +7,7 @@ import {
   resolveAgentMaxConcurrent,
   resolveSubagentMaxConcurrent,
 } from "./agent-limits.js";
-import { withTempHome } from "./test-helpers.js";
+import { withTempHome } from "../../../tests/helpers/config.js";
 
 describe("agent concurrency defaults", () => {
   it("resolves defaults when unset", () => {

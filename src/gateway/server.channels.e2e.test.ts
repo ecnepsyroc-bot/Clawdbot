@@ -7,7 +7,7 @@ import {
   installGatewayTestHooks,
   rpcReq,
   startServerWithClient,
-} from "./test-helpers.js";
+} from "../../../tests/helpers/gateway/index.js";
 
 const loadConfigHelpers = async () => await import("../config/config.js");
 

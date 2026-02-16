@@ -13,7 +13,7 @@ import {
   startServerWithClient,
   testState,
   writeSessionStore,
-} from "./test-helpers.js";
+} from "../../../tests/helpers/gateway/index.js";
 import { __setMaxChatHistoryMessagesBytesForTest } from "./server-constants.js";
 installGatewayTestHooks({ scope: "suite" });
 async function waitFor(condition: () => boolean, timeoutMs = 1500) {

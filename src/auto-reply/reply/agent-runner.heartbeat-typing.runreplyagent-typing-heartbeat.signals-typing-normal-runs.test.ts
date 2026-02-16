@@ -4,7 +4,7 @@ import type { TypingMode } from "../../config/types.js";
 import type { TemplateContext } from "../templating.js";
 import type { GetReplyOptions } from "../types.js";
 import type { FollowupRun, QueueSettings } from "./queue.js";
-import { createMockTypingController } from "./test-helpers.js";
+import { createMockTypingController } from "../../../../tests/helpers/auto-reply.js";
 
 const runEmbeddedPiAgentMock = vi.fn();
 

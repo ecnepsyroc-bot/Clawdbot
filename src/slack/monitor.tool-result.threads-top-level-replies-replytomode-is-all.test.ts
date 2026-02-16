@@ -9,7 +9,7 @@ import {
   getSlackTestState,
   resetSlackTestState,
   waitForSlackEvent,
-} from "./monitor.test-helpers.js";
+} from "../../../tests/helpers/slack-monitor.js";
 import { monitorSlackProvider } from "./monitor.js";
 
 const slackTestState = getSlackTestState();

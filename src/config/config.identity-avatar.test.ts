@@ -3,7 +3,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { validateConfigObject } from "./config.js";
-import { withTempHome } from "./test-helpers.js";
+import { withTempHome } from "../../../tests/helpers/config.js";
 
 describe("identity avatar validation", () => {
   it("accepts workspace-relative avatar paths", async () => {

@@ -2,7 +2,7 @@ import { afterAll, beforeAll, test } from "vitest";
 import WebSocket from "ws";
 
 import { PROTOCOL_VERSION } from "./protocol/index.js";
-import { getFreePort, onceMessage, startGatewayServer } from "./test-helpers.server.js";
+import { getFreePort, onceMessage, startGatewayServer } from "../../../tests/helpers/gateway/server.js";
 
 let server: Awaited<ReturnType<typeof startGatewayServer>>;
 let port = 0;

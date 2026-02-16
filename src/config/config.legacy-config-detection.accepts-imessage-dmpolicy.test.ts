@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import { withTempHome } from "./test-helpers.js";
+import { withTempHome } from "../../../tests/helpers/config.js";
 
 describe("legacy config detection", () => {
   it('accepts imessage.dmPolicy="open" with allowFrom "*"', async () => {

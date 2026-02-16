@@ -20,7 +20,7 @@ import {
   startServerWithClient,
   testState,
   writeSessionStore,
-} from "./test-helpers.js";
+} from "../../../tests/helpers/gateway/index.js";
 
 installGatewayTestHooks({ scope: "suite" });
 

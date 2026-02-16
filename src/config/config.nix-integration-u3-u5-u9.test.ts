@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import { withEnvOverride, withTempHome } from "./test-helpers.js";
+import { withEnvOverride, withTempHome } from "../../../tests/helpers/config.js";
 
 describe("Nix integration (U3, U5, U9)", () => {
   describe("U3: isNixMode env var detection", () => {

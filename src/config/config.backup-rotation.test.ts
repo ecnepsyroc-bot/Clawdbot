@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 
 import { describe, expect, it } from "vitest";
 
-import { withTempHome } from "./test-helpers.js";
+import { withTempHome } from "../../../tests/helpers/config.js";
 import type { MoltbotConfig } from "./types.js";
 
 describe("config backup rotation", () => {

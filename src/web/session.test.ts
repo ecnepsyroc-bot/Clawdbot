@@ -3,7 +3,7 @@ import fsSync from "node:fs";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { resetLogger, setLoggerOverride } from "../logging.js";
-import { baileys, getLastSocket, resetBaileysMocks, resetLoadConfigMock } from "./test-helpers.js";
+import { baileys, getLastSocket, resetBaileysMocks, resetLoadConfigMock } from "../../../tests/helpers/web.js";
 
 const { createWaSocket, formatError, logWebSelfId, waitForWaConnection } =
   await import("./session.js");

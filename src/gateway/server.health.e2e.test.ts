@@ -18,7 +18,7 @@ import {
   onceMessage,
   startGatewayServer,
   startServerWithClient,
-} from "./test-helpers.js";
+} from "../../../tests/helpers/gateway/index.js";
 import { buildDeviceAuthPayload } from "./device-auth.js";
 
 installGatewayTestHooks({ scope: "suite" });

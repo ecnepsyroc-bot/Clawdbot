@@ -9,7 +9,7 @@ import {
   resolveSoulEvilConfigFromHook,
 } from "./soul-evil.js";
 import { DEFAULT_SOUL_FILENAME, type WorkspaceBootstrapFile } from "../agents/workspace.js";
-import { makeTempWorkspace, writeWorkspaceFile } from "../test-helpers/workspace.js";
+import { makeTempWorkspace, writeWorkspaceFile } from "../../../tests/helpers/workspace.js";
 
 const makeFiles = (overrides?: Partial<WorkspaceBootstrapFile>) => [
   {
