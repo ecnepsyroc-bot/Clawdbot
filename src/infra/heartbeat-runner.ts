@@ -33,6 +33,7 @@ import {
   saveSessionStore,
   updateSessionStore,
 } from "../config/sessions.js";
+import { getRuntimeState, updateRuntimeState } from "../domain/session/index.js";
 import type { AgentDefaultsConfig } from "../config/types.agent-defaults.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { peekSystemEvents } from "../infra/system-events.js";
@@ -610,10 +611,10 @@ export async function runHeartbeatOnce(opts: {
 
     // Suppress duplicate heartbeats (same payload) within a short window.
     // This prevents "nagging" when nothing changed but the model repeats the same items.
-    const prevHeartbeatText =
-      typeof entry?.lastHeartbeatText === "string" ? entry.lastHeartbeatText : "";
-    const prevHeartbeatAt =
-      typeof entry?.lastHeartbeatSentAt === "number" ? entry.lastHeartbeatSentAt : undefined;
+    // Read from runtime state (resets on process restart)
+    const runtimeState = getRuntimeState(sessionKey);
+    const prevHeartbeatText = runtimeState.lastHeartbeatText ?? "";
+    const prevHeartbeatAt = runtimeState.lastHeartbeatSentAt;
     const isDuplicateMain =
       !shouldSkipMain &&
       !mediaUrls.length &&
@@ -717,17 +718,12 @@ export async function runHeartbeatOnce(opts: {
     });
 
     // Record last delivered heartbeat payload for dedupe.
+    // Update heartbeat state in runtime store (not persisted to disk)
     if (!shouldSkipMain && normalized.text.trim()) {
-      const store = loadSessionStore(storePath);
-      const current = store[sessionKey];
-      if (current) {
-        store[sessionKey] = {
-          ...current,
-          lastHeartbeatText: normalized.text,
-          lastHeartbeatSentAt: startedAt,
-        };
-        await saveSessionStore(storePath, store);
-      }
+      updateRuntimeState(sessionKey, {
+        lastHeartbeatText: normalized.text,
+        lastHeartbeatSentAt: startedAt,
+      });
     }
 
     emitHeartbeatEvent({
