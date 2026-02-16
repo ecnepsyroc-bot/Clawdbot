@@ -26,6 +26,7 @@ import {
   updateSessionStore,
 } from "../../config/sessions.js";
 import { normalizeMainKey } from "../../routing/session-key.js";
+import { getRuntimeState } from "../../domain/session/index.js";
 import { resolveCommandAuthorization } from "../command-auth.js";
 import type { MsgContext, TemplateContext } from "../templating.js";
 import { normalizeChatType } from "../../channels/chat-type.js";
@@ -217,7 +218,8 @@ export async function initSessionState(params: {
 
   if (!isNewSession && freshEntry) {
     sessionId = entry.sessionId;
-    systemSent = entry.systemSent ?? false;
+    // Read systemSent from runtime state (resets on process restart)
+    systemSent = getRuntimeState(sessionKey).systemSent ?? false;
     abortedLastRun = entry.abortedLastRun ?? false;
     persistedThinking = entry.thinkingLevel;
     persistedVerbose = entry.verboseLevel;
@@ -255,7 +257,7 @@ export async function initSessionState(params: {
     ...baseEntry,
     sessionId,
     updatedAt: Date.now(),
-    systemSent,
+    // Note: systemSent is now runtime state, not persisted
     abortedLastRun,
     // Persist previously stored thinking/verbose levels when present.
     thinkingLevel: persistedThinking ?? baseEntry?.thinkingLevel,

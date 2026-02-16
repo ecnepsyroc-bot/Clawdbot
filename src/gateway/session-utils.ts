@@ -21,6 +21,7 @@ import {
   normalizeMainKey,
   parseAgentSessionKey,
 } from "../routing/session-key.js";
+import { getRuntimeState } from "../domain/session/index.js";
 import { normalizeSessionDeliveryFields } from "../utils/delivery-context.js";
 import {
   readFirstUserMessageFromTranscript,
@@ -567,7 +568,8 @@ export function listSessionsFromStore(params: {
         origin,
         updatedAt,
         sessionId: entry?.sessionId,
-        systemSent: entry?.systemSent,
+        // Read systemSent from runtime state
+        systemSent: getRuntimeState(key).systemSent ?? false,
         abortedLastRun: entry?.abortedLastRun,
         thinkingLevel: entry?.thinkingLevel,
         verboseLevel: entry?.verboseLevel,

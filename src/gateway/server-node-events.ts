@@ -41,7 +41,7 @@ export const handleNodeEvent = async (ctx: NodeEventContext, nodeId: string, evt
             thinkingLevel: entry?.thinkingLevel,
             verboseLevel: entry?.verboseLevel,
             reasoningLevel: entry?.reasoningLevel,
-            systemSent: entry?.systemSent,
+            // Note: systemSent is now runtime state, not persisted
             sendPolicy: entry?.sendPolicy,
             lastChannel: entry?.lastChannel,
             lastTo: entry?.lastTo,
@@ -112,7 +112,7 @@ export const handleNodeEvent = async (ctx: NodeEventContext, nodeId: string, evt
             thinkingLevel: entry?.thinkingLevel,
             verboseLevel: entry?.verboseLevel,
             reasoningLevel: entry?.reasoningLevel,
-            systemSent: entry?.systemSent,
+            // Note: systemSent is now runtime state, not persisted
             sendPolicy: entry?.sendPolicy,
             lastChannel: entry?.lastChannel,
             lastTo: entry?.lastTo,

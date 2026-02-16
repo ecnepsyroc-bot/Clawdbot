@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 
 import { resolveUserTimezone } from "../../agents/date-time.js";
 import { buildWorkspaceSkillSnapshot } from "../../agents/skills.js";
+import { getRuntimeState, updateRuntimeState } from "../../domain/session/index.js";
 import { ensureSkillsWatcher, getSkillsSnapshotVersion } from "../../agents/skills/refresh.js";
 import type { MoltbotConfig } from "../../config/config.js";
 import { type SessionEntry, updateSessionStore } from "../../config/sessions.js";
@@ -153,7 +154,8 @@ export async function ensureSkillSnapshot(params: {
   } = params;
 
   let nextEntry = sessionEntry;
-  let systemSent = sessionEntry?.systemSent ?? false;
+  // Read systemSent from runtime state (resets on process restart)
+  let systemSent = sessionKey ? (getRuntimeState(sessionKey).systemSent ?? false) : false;
   const remoteEligibility = getRemoteSkillEligibility();
   const snapshotVersion = getSkillsSnapshotVersion(workspaceDir);
   ensureSkillsWatcher({ workspaceDir, config: cfg });
@@ -179,7 +181,7 @@ export async function ensureSkillSnapshot(params: {
       ...current,
       sessionId: sessionId ?? current.sessionId ?? crypto.randomUUID(),
       updatedAt: Date.now(),
-      systemSent: true,
+      // Note: systemSent is now runtime state, not persisted
       skillsSnapshot: skillSnapshot,
     };
     sessionStore[sessionKey] = { ...sessionStore[sessionKey], ...nextEntry };
@@ -188,6 +190,8 @@ export async function ensureSkillSnapshot(params: {
         store[sessionKey] = { ...store[sessionKey], ...nextEntry };
       });
     }
+    // Update systemSent in runtime state (not persisted)
+    updateRuntimeState(sessionKey, { systemSent: true });
     systemSent = true;
   }
 

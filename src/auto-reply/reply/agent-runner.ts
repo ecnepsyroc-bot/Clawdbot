@@ -245,7 +245,7 @@ export async function runReplyAgent(params: {
       ...prevEntry,
       sessionId: nextSessionId,
       updatedAt: Date.now(),
-      systemSent: false,
+      // Note: systemSent is now runtime state, not persisted
       abortedLastRun: false,
     };
     const agentId = resolveAgentIdFromSessionKey(sessionKey);

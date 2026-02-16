@@ -16,11 +16,11 @@ export function resolveCronSession(params: {
   const store = loadSessionStore(storePath);
   const entry = store[params.sessionKey];
   const sessionId = crypto.randomUUID();
-  const systemSent = false;
+  const systemSent = false; // Runtime state, not persisted
   const sessionEntry: SessionEntry = {
     sessionId,
     updatedAt: params.nowMs,
-    systemSent,
+    // Note: systemSent is now runtime state, not persisted
     thinkingLevel: entry?.thinkingLevel,
     verboseLevel: entry?.verboseLevel,
     model: entry?.model,

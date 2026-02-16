@@ -236,7 +236,7 @@ export const agentHandlers: GatewayRequestHandlers = {
         thinkingLevel: entry?.thinkingLevel,
         verboseLevel: entry?.verboseLevel,
         reasoningLevel: entry?.reasoningLevel,
-        systemSent: entry?.systemSent,
+        // Note: systemSent is now runtime state, not persisted
         sendPolicy: entry?.sendPolicy,
         skillsSnapshot: entry?.skillsSnapshot,
         deliveryContext: deliveryFields.deliveryContext,

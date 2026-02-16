@@ -3,6 +3,7 @@ import { DEFAULT_CONTEXT_TOKENS, DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agen
 import { resolveConfiguredModelRef } from "../agents/model-selection.js";
 import { loadConfig } from "../config/config.js";
 import { loadSessionStore, resolveStorePath, type SessionEntry } from "../config/sessions.js";
+import { getRuntimeState } from "../domain/session/index.js";
 import { info } from "../globals.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { isRich, theme } from "../terminal/theme.js";
@@ -129,7 +130,8 @@ function toRows(store: Record<string, SessionEntry>): SessionRow[] {
         updatedAt,
         ageMs: updatedAt ? Date.now() - updatedAt : null,
         sessionId: entry?.sessionId,
-        systemSent: entry?.systemSent,
+        // Read systemSent from runtime state
+        systemSent: getRuntimeState(key).systemSent ?? false,
         abortedLastRun: entry?.abortedLastRun,
         thinkingLevel: entry?.thinkingLevel,
         verboseLevel: entry?.verboseLevel,

@@ -13,6 +13,7 @@ import { buildChannelSummary } from "../infra/channel-summary.js";
 import { resolveHeartbeatSummaryForAgent } from "../infra/heartbeat-runner.js";
 import { peekSystemEvents } from "../infra/system-events.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
+import { getRuntimeState } from "../domain/session/index.js";
 import { resolveLinkChannelContext } from "./status.link-channel.js";
 import type { HeartbeatStatus, SessionStatus, StatusSummary } from "./status.types.js";
 
@@ -28,7 +29,7 @@ const classifyKey = (key: string, entry?: SessionEntry): SessionStatus["kind"] =
   return "direct";
 };
 
-const buildFlags = (entry?: SessionEntry): string[] => {
+const buildFlags = (sessionKey: string, entry?: SessionEntry): string[] => {
   if (!entry) return [];
   const flags: string[] = [];
   const think = entry?.thinkingLevel;
@@ -39,7 +40,8 @@ const buildFlags = (entry?: SessionEntry): string[] => {
   if (typeof reasoning === "string" && reasoning.length > 0) flags.push(`reasoning:${reasoning}`);
   const elevated = entry?.elevatedLevel;
   if (typeof elevated === "string" && elevated.length > 0) flags.push(`elevated:${elevated}`);
-  if (entry?.systemSent) flags.push("system");
+  // Read systemSent from runtime state
+  if (getRuntimeState(sessionKey).systemSent) flags.push("system");
   if (entry?.abortedLastRun) flags.push("aborted");
   const sessionId = entry?.sessionId as unknown;
   if (typeof sessionId === "string" && sessionId.length > 0) flags.push(`id:${sessionId}`);
@@ -120,7 +122,8 @@ export async function getStatusSummary(): Promise<StatusSummary> {
           verboseLevel: entry?.verboseLevel,
           reasoningLevel: entry?.reasoningLevel,
           elevatedLevel: entry?.elevatedLevel,
-          systemSent: entry?.systemSent,
+          // Read systemSent from runtime state
+          systemSent: getRuntimeState(key).systemSent ?? false,
           abortedLastRun: entry?.abortedLastRun,
           inputTokens: entry?.inputTokens,
           outputTokens: entry?.outputTokens,
@@ -129,7 +132,7 @@ export async function getStatusSummary(): Promise<StatusSummary> {
           percentUsed: pct,
           model,
           contextTokens,
-          flags: buildFlags(entry),
+          flags: buildFlags(key, entry),
         } satisfies SessionStatus;
       })
       .sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0));

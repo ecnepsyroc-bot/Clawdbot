@@ -3,6 +3,7 @@ import path from "node:path";
 import { Type } from "@sinclair/typebox";
 
 import { loadConfig } from "../../config/config.js";
+import { getRuntimeState } from "../../domain/session/index.js";
 import { callGateway } from "../../gateway/call.js";
 import { isSubagentSessionKey, resolveAgentIdFromSessionKey } from "../../routing/session-key.js";
 import type { AnyAgentTool } from "./common.js";
@@ -171,7 +172,8 @@ export function createSessionsListTool(opts?: {
           totalTokens: typeof entry.totalTokens === "number" ? entry.totalTokens : undefined,
           thinkingLevel: typeof entry.thinkingLevel === "string" ? entry.thinkingLevel : undefined,
           verboseLevel: typeof entry.verboseLevel === "string" ? entry.verboseLevel : undefined,
-          systemSent: typeof entry.systemSent === "boolean" ? entry.systemSent : undefined,
+          // Read systemSent from runtime state
+          systemSent: getRuntimeState(key).systemSent ?? undefined,
           abortedLastRun:
             typeof entry.abortedLastRun === "boolean" ? entry.abortedLastRun : undefined,
           sendPolicy: typeof entry.sendPolicy === "string" ? entry.sendPolicy : undefined,

@@ -237,7 +237,7 @@ export const sessionsHandlers: GatewayRequestHandlers = {
       const nextEntry: SessionEntry = {
         sessionId: randomUUID(),
         updatedAt: now,
-        systemSent: false,
+        // Note: systemSent is now runtime state, not persisted
         abortedLastRun: false,
         thinkingLevel: entry?.thinkingLevel,
         verboseLevel: entry?.verboseLevel,
