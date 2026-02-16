@@ -24,19 +24,13 @@ export type SessionOrigin = {
 };
 
 export type SessionEntry = {
-  /**
-   * Last delivered heartbeat payload (used to suppress duplicate heartbeat notifications).
-   * Stored on the main session entry.
-   */
-  lastHeartbeatText?: string;
-  /** Timestamp (ms) when lastHeartbeatText was delivered. */
-  lastHeartbeatSentAt?: number;
+  // Note: Runtime state fields (systemSent, lastHeartbeat*, cliSessionIds) are now
+  // stored in the in-memory runtime state store. See domain/session/runtime-state.ts.
   sessionId: string;
   updatedAt: number;
   sessionFile?: string;
   /** Parent session key that spawned this session (used for sandbox session-tool scoping). */
   spawnedBy?: string;
-  systemSent?: boolean;
   abortedLastRun?: boolean;
   chatType?: SessionChatType;
   thinkingLevel?: string;
@@ -77,8 +71,6 @@ export type SessionEntry = {
   compactionCount?: number;
   memoryFlushAt?: number;
   memoryFlushCompactionCount?: number;
-  cliSessionIds?: Record<string, string>;
-  claudeCliSessionId?: string;
   label?: string;
   displayName?: string;
   channel?: string;
