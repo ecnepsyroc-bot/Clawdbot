@@ -65,6 +65,28 @@ The relay on :18792 starts **eagerly** when the node boots (patched 2026-02-15).
 2. If CLI OAuth is fresh, transplant tokens from `~/.claude/.credentials.json` into `auth-profiles.json`
 3. Ensure `lastGood` points to `anthropic:claude-cli`
 
+## Shared Infrastructure
+
+OpenClaw depends on infrastructure managed by the Cambium data resilience plan:
+
+- **Pi Hardware & Docker**: Gateway runs on Raspberry Pi 5 (phteah-pi) in Docker container `openclaw`
+- **Network Access**: SSH tunnels (currently) and Cloudflare tunnels (planned migration)
+- **Persistent State Backups**: `/mnt/data/docker/openclaw/` must be included in Pi backup automation
+- **Dejavara Startup Chain**: Node scheduled task depends on network availability and SSH tunnel establishment
+- **WireGuard VPN**: Required for remote access when not on home network (TELUS7838)
+
+**CRITICAL**: Changes to shared systems must be coordinated between OpenClaw and Cambium:
+
+- **Cloudflare Tunnel Migration**: When SSH tunnels are deprecated, OpenClaw needs tunnel entry (`openclaw.phteah-pi.duckdns.org`) and node config update
+- **Pi Backup Automation**: OpenClaw persistent state must be in backup scope (currently NOT automated)
+- **Network Configuration**: VPN and network profile changes affect node connectivity
+
+See `OpenClaw/docs/INFRASTRUCTURE.md` for complete dependency map and migration risks.
+
+**Cambium Integration Note**: Cambium's data resilience plan will coordinate the Cloudflare unification and Pi backup workstreams. Track separately in this file but do NOT plan in isolation.
+
+---
+
 ## Build
 
 ```bash
