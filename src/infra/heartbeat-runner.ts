@@ -30,7 +30,6 @@ import {
   resolveAgentIdFromSessionKey,
   resolveAgentMainSessionKey,
   resolveStorePath,
-  saveSessionStore,
   updateSessionStore,
 } from "../config/sessions.js";
 import { getRuntimeState, updateRuntimeState } from "../domain/session/index.js";
